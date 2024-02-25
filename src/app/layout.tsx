@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="w-full min-w-[65em]">
+      <body className="w-full min-w-[60em]">
         <Provider>
           <ThemeProvider
             attribute="class"

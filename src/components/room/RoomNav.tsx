@@ -34,8 +34,6 @@ const RoomNav = () => {
 
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-4">
-          <RunButton />
-          <LanguageSelector />
           <Button variant="secondary">Active Users</Button>
           <Button>Editor</Button>
           <Button variant="outline">Whiteboard</Button>

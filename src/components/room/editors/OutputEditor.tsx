@@ -1,13 +1,17 @@
-'use client';
+"use client";
 
+import { RootState } from "@/features/store";
 import { Editor, Monaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
 import { useTheme } from "next-themes";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 const OutputEditor = () => {
   const { theme } = useTheme();
+  const outputText = useSelector((state: RootState) => state.editor.outputText);
   const editorRef = useRef<any>(null);
+
   function handleEditorDidMount(
     editor: editor.IStandaloneCodeEditor,
     monaco: Monaco
@@ -15,26 +19,18 @@ const OutputEditor = () => {
     editorRef.current = editor;
   }
 
-  function showValue() {
-    alert(editorRef.current.getValue());
-  }
-
-  function handleEditorChange(
-    value: string | undefined,
-    event: editor.IModelContentChangedEvent
-  ) {
-    // console.log(value);
-  }
+  useEffect(() => {
+    if (editorRef.current) editorRef.current.setValue(outputText);
+  }, [outputText]);
 
   return (
     <Editor
       className="border rounded-md"
-      height="90%"
+      height="87%"
       width="100%"
       theme={theme === "light" ? "light" : "vs-dark"}
-      defaultLanguage='txt'
+      defaultLanguage="txt"
       onMount={handleEditorDidMount}
-      onChange={handleEditorChange}
       options={{
         wordWrap: "on",
         minimap: {
@@ -43,6 +39,7 @@ const OutputEditor = () => {
         padding: {
           top: 5,
         },
+        readOnly: true,
       }}
     />
   );

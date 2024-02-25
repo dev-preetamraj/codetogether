@@ -1,13 +1,15 @@
 "use client";
 
-import { RootState } from "@/features/store";
+import { setSouceCode } from "@/features/editorSlice";
+import { AppDispatch, RootState } from "@/features/store";
 import Editor, { Monaco, useMonaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const CodeEditor = () => {
+  const dispatch: AppDispatch = useDispatch();
   const language = useSelector((state: RootState) => state.editor.language);
 
   const { theme } = useTheme();
@@ -40,7 +42,7 @@ const CodeEditor = () => {
     value: string | undefined,
     event: editor.IModelContentChangedEvent
   ) {
-    // console.log(value);
+    dispatch(setSouceCode(value ?? ""));
   }
 
   return (
@@ -58,8 +60,8 @@ const CodeEditor = () => {
           enabled: false,
         },
         padding: {
-          top: 5
-        }
+          top: 5,
+        },
       }}
     />
   );
