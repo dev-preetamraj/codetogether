@@ -74,6 +74,7 @@ const RunButton = () => {
       variant="secondary"
       className="flex items-center space-x-2"
       onClick={handleRun}
+      disabled={sourceCode===''}
     >
       <PlayIcon className="h-6 w-6" />
       <p>{submitLoading ? "Submitting..." : "Run"}</p>
