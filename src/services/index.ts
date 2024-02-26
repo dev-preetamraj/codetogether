@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const judgeQuery = axios.create({
-  baseURL: "https://judge0-ce.p.rapidapi.com",
+  baseURL: process.env.NEXT_PUBLIC_JUDGE_URI,
   headers: {
     "content-type": "application/json",
     "Content-Type": "application/json",
@@ -11,7 +11,7 @@ export const judgeQuery = axios.create({
 });
 
 export const baseQuery = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/v1",
+  baseURL: process.env.NEXT_PUBLIC_SERVER_URI,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
