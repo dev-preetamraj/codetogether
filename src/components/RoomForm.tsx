@@ -13,8 +13,8 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import useAuth from "@/hooks/useAuth";
 
 type Props = {
   setOpen: (value: boolean) => void;
@@ -32,11 +32,12 @@ const formSchema = z.object({
 
 const RoomForm = ({ setOpen }: Props) => {
   const router = useRouter();
+  const { user } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      name: user ? user.first_name + " " + user.last_name : "",
       roomId: "",
     },
   });
@@ -59,7 +60,7 @@ const RoomForm = ({ setOpen }: Props) => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Name" {...field} />
+                <Input placeholder="Name" {...field} disabled />
               </FormControl>
               <FormMessage />
             </FormItem>
