@@ -7,6 +7,7 @@ import NavLogo from "./NavLogo";
 import { CreateRoomDialog } from "./CreateRoomDialog";
 import useAuth from "@/hooks/useAuth";
 import LogoutButton from "./LogoutButton";
+import ProfileMenu from "./ProfileMenu";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuth();
@@ -28,25 +29,21 @@ const Navbar = () => {
       </div>
       <div className="flex items-center space-x-4">
         {isAuthenticated && (
-          <div className="flex items-center space-x-2">
-            <p>Welcome,</p>
-            <span className="text-primary font-semibold text-xl">
-              {user?.first_name}
-            </span>
-          </div>
+          <>
+            <div className="flex items-center space-x-2">
+              <p>Welcome,</p>
+              <span className="text-primary font-semibold text-xl">
+                {user?.first_name}
+              </span>
+            </div>
+            <ProfileMenu />
+          </>
         )}
-        <ul className="flex items-center space-x-4">
-          {!isAuthenticated ? (
-            <li>
-              <Link href="/auth/login">
-                <Button>Login/Register</Button>
-              </Link>
-            </li>
-          ) : (
-            <LogoutButton />
-          )}
-        </ul>
-        <ModeToggle />
+        {!isAuthenticated && (
+          <Link href="/auth/login">
+            <Button>Login/Register</Button>
+          </Link>
+        )}
       </div>
     </nav>
   );

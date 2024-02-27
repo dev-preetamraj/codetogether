@@ -40,6 +40,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         localStorage.access_token = newAccessToken;
         const user = await fetchUser(newAccessToken);
         dispatch(login(user));
+        setLoading(false);
+        return;
       }
 
       if (accessToken) {
@@ -48,6 +50,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
         const user = await fetchUser(accessToken);
         dispatch(login(user));
+        setLoading(false);
+        return;
       }
 
       if (isMounted) {
